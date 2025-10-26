@@ -6,7 +6,7 @@ set -e
 # Define the host and port for the database.
 # We get these from environment variables set in docker-compose.yml, with defaults.
 MONGO_HOST=${MONGO_HOST:-tb_mongo}
-MONGO_PORT=${MONGO_PORT:-27017}
+MONGO_PORT=${MONGO_PORT:-27018}
 
 echo "Waiting for database at $MONGO_HOST:$MONGO_PORT..."
 
