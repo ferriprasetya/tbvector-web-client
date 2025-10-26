@@ -1,0 +1,400 @@
+<main class="bg-gray-50 py-8">
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <a
+            href="/recordings"
+            class="text-primary-700 hover:text-primary-900 text-sm font-medium flex items-center gap-1 mb-3"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
+            </svg>
+            Kembali ke Riwayat
+          </a>
+          <h1 class="text-3xl font-bold text-gray-900">
+            Detail Riwayat Deteksi
+          </h1>
+          <p class="mt-1 text-gray-600">
+            <%= new Date(coughEvent.timestamp).toLocaleString('id-ID', { day:
+            'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute:
+            '2-digit' }) %>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Main Content -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Status Card -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">
+            Status Deteksi
+          </h2>
+
+          <div class="mb-4">
+            <% if (coughEvent.status === 'ANALYZING') { %>
+            <span
+              class="inline-flex items-center px-4 py-2 rounded-full text-base font-medium bg-yellow-100 text-yellow-800"
+            >
+              <svg
+                class="animate-spin w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  class="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  stroke-width="4"
+                ></circle>
+                <path
+                  class="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Sedang Dianalisis
+            </span>
+            <% } else if (coughEvent.status === 'POSITIVE_TB') { %>
+            <span
+              class="inline-flex items-center px-4 py-2 rounded-full text-base font-medium bg-red-100 text-red-800"
+            >
+              <svg
+                class="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                ></path>
+              </svg>
+              Positif TB
+            </span>
+            <% } else { %>
+            <span
+              class="inline-flex items-center px-4 py-2 rounded-full text-base font-medium bg-green-100 text-green-800"
+            >
+              <svg
+                class="w-5 h-5 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              Negatif TB
+            </span>
+            <% } %>
+          </div>
+
+          <% if (coughEvent.detectionResult &&
+          coughEvent.detectionResult.confidenceScore) { %>
+          <div class="mt-4 bg-gray-50 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-medium text-gray-700"
+                >Confidence Score</span
+              >
+              <span class="text-lg font-bold text-gray-900">
+                <%= (coughEvent.detectionResult.confidenceScore *
+                100).toFixed(2) %>%
+              </span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+              <div
+                class="<%= coughEvent.status === 'POSITIVE_TB' ? 'bg-red-600' : 'bg-green-600' %> h-3 rounded-full transition-all"
+                style="
+                  width: <%- (coughEvent.detectionResult.confidenceScore * 100)
+                    .toFixed(2) %>%;
+                "
+              ></div>
+            </div>
+          </div>
+          <% } %> <% if (coughEvent.status === 'POSITIVE_TB') { %>
+          <div class="mt-4 bg-red-50 border border-red-200 rounded-lg p-4">
+            <div class="flex items-start">
+              <svg
+                class="w-6 h-6 text-red-600 mr-3 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+              <div>
+                <h3 class="text-sm font-medium text-red-800">Perhatian</h3>
+                <p class="mt-1 text-sm text-red-700">
+                  Hasil deteksi menunjukkan indikasi positif TB. Segera
+                  konsultasikan dengan tenaga medis profesional untuk
+                  pemeriksaan lebih lanjut.
+                </p>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        </div>
+
+        <!-- Audio Visualization -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">
+            Visualisasi Audio
+          </h2>
+
+          <!-- Waveform -->
+          <div class="mb-6">
+            <h3 class="text-sm font-medium text-gray-700 mb-2">Waveform</h3>
+            <div id="waveform" class="border border-gray-200 rounded-lg"></div>
+          </div>
+
+          <!-- Spectrogram -->
+          <div>
+            <h3 class="text-sm font-medium text-gray-700 mb-2">Spectrogram</h3>
+            <div
+              id="wave-spectrogram"
+              class="border border-gray-200 rounded-lg"
+            ></div>
+          </div>
+
+          <!-- Audio Controls -->
+          <div class="mt-4 flex items-center gap-4">
+            <button
+              id="playPauseBtn"
+              class="bg-primary-700 hover:bg-primary-800 text-white px-6 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+            >
+              <svg
+                id="playIcon"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M8 5v14l11-7z"></path>
+              </svg>
+              <svg
+                id="pauseIcon"
+                class="w-5 h-5 hidden"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"></path>
+              </svg>
+              <span id="playPauseText">Play</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-6">
+        <!-- Information Card -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Informasi</h2>
+
+          <div class="space-y-4">
+            <div>
+              <div class="text-sm font-medium text-gray-500 mb-1">
+                ID Rekaman
+              </div>
+              <div class="text-sm text-gray-900 font-mono break-all">
+                <%= coughEvent.id %>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-sm font-medium text-gray-500 mb-1">
+                Tanggal & Waktu
+              </div>
+              <div class="text-sm text-gray-900">
+                <%= new Date(coughEvent.timestamp).toLocaleString('id-ID', {
+                weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', second: '2-digit' }) %>
+              </div>
+            </div>
+
+            <% if (coughEvent.user) { %>
+            <div>
+              <div class="text-sm font-medium text-gray-500 mb-1">Pengguna</div>
+              <div class="flex items-center gap-2">
+                <% if (coughEvent.user.avatar) { %>
+                <img
+                  src="<%= coughEvent.user.avatar %>"
+                  alt="<%= coughEvent.user.name %>"
+                  class="w-8 h-8 rounded-full"
+                />
+                <% } else { %>
+                <div
+                  class="w-8 h-8 rounded-full bg-primary-700 flex items-center justify-center text-white font-medium"
+                >
+                  <%= coughEvent.user.name.charAt(0).toUpperCase() %>
+                </div>
+                <% } %>
+                <div>
+                  <div class="text-sm text-gray-900 font-medium">
+                    <%= coughEvent.user.name %>
+                  </div>
+                  <div class="text-xs text-gray-500">
+                    <%= coughEvent.user.email %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% } %> <% if (coughEvent.device) { %>
+            <div>
+              <div class="text-sm font-medium text-gray-500 mb-1">
+                Perangkat
+              </div>
+              <div class="text-sm text-gray-900">
+                <%= coughEvent.device.name %>
+              </div>
+              <div class="text-xs text-gray-500 mt-1">
+                <svg
+                  class="w-3 h-3 inline mr-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  ></path>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                </svg>
+                <%= coughEvent.device.location %>
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Download Card -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Unduh</h2>
+
+          <a
+            href="<%= coughEvent.audioPath %>"
+            download
+            class="w-full bg-primary-700 hover:bg-primary-800 text-white px-4 py-3 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              ></path>
+            </svg>
+            Unduh File Audio
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- WaveSurfer.js -->
+<script src="https://unpkg.com/wavesurfer.js@7"></script>
+<script src="https://unpkg.com/wavesurfer.js@7/dist/plugins/spectrogram.min.js"></script>
+
+<script>
+  let wavesurfer = null
+
+  // Initialize WaveSurfer with spectrogram plugin (without custom colormap)
+  wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: 'purple',
+    progressColor: 'blue',
+    height: 128,
+    barWidth: 2,
+    barGap: 1,
+    barRadius: 2,
+    plugins: [
+      WaveSurfer.Spectrogram.create({
+        container: '#wave-spectrogram',
+        labels: true,
+        height: 256,
+        // Use default colormap (no custom colorMap parameter)
+      }),
+    ],
+  })
+
+  // Load audio file
+  const audioPath = '<%= coughEvent.audioPath %>'
+  wavesurfer.load(audioPath)
+
+  // Update button state on play
+  wavesurfer.on('play', () => {
+    updatePlayPauseButton(true)
+  })
+
+  // Update button state on pause
+  wavesurfer.on('pause', () => {
+    updatePlayPauseButton(false)
+  })
+
+  // Update button state on finish
+  wavesurfer.on('finish', () => {
+    updatePlayPauseButton(false)
+  })
+
+  // Play/Pause button
+  document.getElementById('playPauseBtn').addEventListener('click', () => {
+    wavesurfer.playPause()
+  })
+
+  // Helper function to update play/pause button
+  function updatePlayPauseButton(isPlaying) {
+    const playIcon = document.getElementById('playIcon')
+    const pauseIcon = document.getElementById('pauseIcon')
+    const playPauseText = document.getElementById('playPauseText')
+
+    if (isPlaying) {
+      playIcon.classList.add('hidden')
+      pauseIcon.classList.remove('hidden')
+      playPauseText.textContent = 'Pause'
+    } else {
+      playIcon.classList.remove('hidden')
+      pauseIcon.classList.add('hidden')
+      playPauseText.textContent = 'Play'
+    }
+  }
+</script>

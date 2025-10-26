@@ -1,0 +1,320 @@
+<main class="bg-gray-50 py-8">
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">Riwayat Deteksi</h1>
+          <p class="mt-1 text-gray-600">Semua hasil deteksi TB Anda</p>
+        </div>
+        <a
+          href="/"
+          class="bg-primary-700 hover:bg-primary-800 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 4v16m8-8H4"
+            ></path>
+          </svg>
+          Rekam Baru
+        </a>
+      </div>
+    </div>
+
+    <!-- Filter -->
+    <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+      <div class="flex flex-wrap gap-4 items-center">
+        <label class="text-sm font-medium text-gray-700">Filter Status:</label>
+        <div class="flex gap-2 flex-wrap">
+          <a
+            href="/recordings"
+            class="<%= currentStatus === 'all' ? 'bg-primary-700 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' %> px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          >
+            Semua
+          </a>
+          <a
+            href="/recordings?status=ANALYZING"
+            class="<%= currentStatus === 'ANALYZING' ? 'bg-yellow-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' %> px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          >
+            Dianalisis
+          </a>
+          <a
+            href="/recordings?status=POSITIVE_TB"
+            class="<%= currentStatus === 'POSITIVE_TB' ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' %> px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          >
+            Positif TB
+          </a>
+          <a
+            href="/recordings?status=NEGATIVE_TB"
+            class="<%= currentStatus === 'NEGATIVE_TB' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300' %> px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          >
+            Negatif TB
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recordings List -->
+    <% if (events.length === 0) { %>
+    <div class="bg-white rounded-lg shadow-sm p-12 text-center">
+      <svg
+        class="w-16 h-16 text-gray-400 mx-auto mb-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+        ></path>
+      </svg>
+      <h3 class="text-lg font-medium text-gray-900 mb-2">Belum ada rekaman</h3>
+      <p class="text-gray-600 mb-6">
+        Mulai merekam suara batuk Anda untuk deteksi TB
+      </p>
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 bg-primary-700 hover:bg-primary-800 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+          ></path>
+        </svg>
+        Mulai Merekam
+      </a>
+    </div>
+    <% } else { %>
+    <div class="space-y-4">
+      <% events.forEach(function(event) { %>
+      <div
+        class="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow"
+      >
+        <div class="flex items-start justify-between flex-wrap">
+          <div class="flex-1">
+            <!-- Status Badge -->
+            <div class="mb-3">
+              <% if (event.status === 'ANALYZING') { %>
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800"
+              >
+                <svg
+                  class="animate-spin w-4 h-4 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                Sedang Dianalisis
+              </span>
+              <% } else if (event.status === 'POSITIVE_TB') { %>
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800"
+              >
+                <svg
+                  class="w-4 h-4 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  ></path>
+                </svg>
+                Positif TB
+              </span>
+              <% } else { %>
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
+              >
+                <svg
+                  class="w-4 h-4 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+                Negatif TB
+              </span>
+              <% } %>
+            </div>
+
+            <!-- Event Details -->
+            <div class="space-y-2">
+              <div class="flex items-center text-sm text-gray-600">
+                <svg
+                  class="w-5 h-5 mr-2 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  ></path>
+                </svg>
+                <%= new Date(event.timestamp).toLocaleString('id-ID', { day:
+                'numeric', month: 'long', year: 'numeric', hour: '2-digit',
+                minute: '2-digit' }) %>
+              </div>
+
+              <% if (event.device) { %>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg
+                  class="w-5 h-5 mr-2 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                  ></path>
+                </svg>
+                <%= event.device.name %> - <%= event.device.location %>
+              </div>
+              <% } %> <% if (event.detectionResult &&
+              event.detectionResult.confidenceScore) { %>
+              <div class="flex items-center text-sm text-gray-600">
+                <svg
+                  class="w-5 h-5 mr-2 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  ></path>
+                </svg>
+                Confidence Score: <%= (event.detectionResult.confidenceScore *
+                100).toFixed(2) %>%
+              </div>
+              <% } %>
+            </div>
+          </div>
+
+          <!-- Audio Player -->
+          <div class="sm:ml-6 max-sm:w-full min-w-[200px] mt-4 sm:mt-0">
+            <audio controls class="h-10 max-sm:w-full">
+              <source src="<%= event.audioPath %>" type="audio/wav" />
+              Browser Anda tidak mendukung audio player.
+            </audio>
+          </div>
+        </div>
+
+        <!-- View Details Button -->
+        <div class="mt-4 pt-4 border-t border-gray-200">
+          <a
+            href="/riwayat-deteksi/<%= event.id %>"
+            class="text-primary-700 hover:text-primary-900 text-sm font-medium flex items-center gap-1"
+          >
+            Lihat Detail
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              ></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+
+    <!-- Pagination -->
+    <% if (pagination.pages > 1) { %>
+    <div class="mt-8 flex justify-center">
+      <nav class="flex items-center gap-2">
+        <!-- Previous Button -->
+        <% if (pagination.page > 1) { %>
+        <a
+          href="?page=<%= pagination.page - 1 %><%= currentStatus !== 'all' ? '&status=' + currentStatus : '' %>"
+          class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          Previous
+        </a>
+        <% } %>
+
+        <!-- Page Numbers -->
+        <% for (let i = 1; i <= pagination.pages; i++) { %>
+        <a
+          href="?page=<%= i %><%= currentStatus !== 'all' ? '&status=' + currentStatus : '' %>"
+          class="<%= i === pagination.page ? 'bg-primary-700 text-white' : 'bg-white text-gray-700 hover:bg-gray-50' %> px-4 py-2 border border-gray-300 rounded-lg transition-colors"
+        >
+          <%= i %>
+        </a>
+        <% } %>
+
+        <!-- Next Button -->
+        <% if (pagination.page < pagination.pages) { %>
+        <a
+          href="?page=<%= pagination.page + 1 %><%= currentStatus !== 'all' ? '&status=' + currentStatus : '' %>"
+          class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          Next
+        </a>
+        <% } %>
+      </nav>
+    </div>
+    <% } %> <% } %>
+  </div>
+</main>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+  defer
+></script>

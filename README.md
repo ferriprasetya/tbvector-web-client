@@ -33,6 +33,7 @@ TBVector adalah platform web fullstack untuk monitoring dan deteksi dini tuberku
 ## ✨ Features
 
 ### 🔐 Autentikasi & Otorisasi
+
 - ✅ Registrasi user dengan email verification
 - ✅ Login berbasis email dengan session management
 - ✅ Role-based access control (User & Admin)
@@ -40,36 +41,42 @@ TBVector adalah platform web fullstack untuk monitoring dan deteksi dini tuberku
 - ✅ Session persistence dengan express-session
 
 ### 📊 Dashboard & Monitoring
+
 - ✅ Real-time dashboard dengan statistik
 - ✅ Visualisasi data dengan Chart.js
 - ✅ Live updates dengan Socket.IO
 - ✅ Filter dan pencarian data
 
 ### 📱 Device Management
+
 - ✅ Manajemen multiple perangkat IoT
 - ✅ Status monitoring (online/offline)
 - ✅ Device configuration
 - ✅ API key authentication untuk devices
 
 ### 🎤 Cough Detection
+
 - ✅ Analisis suara batuk dengan ML
 - ✅ Riwayat deteksi batuk
 - ✅ Upload dan playback audio
 - ✅ Klasifikasi hasil deteksi
 
 ### 🔔 Notifications
+
 - ✅ Real-time notifications dengan Socket.IO
 - ✅ Browser push notifications
 - ✅ In-app notification system
 - ✅ Email notifications (optional)
 
 ### 👥 User Management (Admin)
+
 - ✅ CRUD users
 - ✅ Role assignment
 - ✅ User statistics
 - ✅ Activity monitoring
 
 ### 🎨 UI/UX
+
 - ✅ Responsive design dengan TailwindCSS
 - ✅ Modern & clean interface
 - ✅ Interactive components dengan Alpine.js
@@ -81,6 +88,7 @@ TBVector adalah platform web fullstack untuk monitoring dan deteksi dini tuberku
 ## 🛠️ Tech Stack
 
 ### Backend
+
 - **Runtime**: Node.js (>= 18.x)
 - **Framework**: Express.js 5
 - **Language**: TypeScript 5
@@ -89,6 +97,7 @@ TBVector adalah platform web fullstack untuk monitoring dan deteksi dini tuberku
 - **Real-time**: Socket.IO
 
 ### Frontend
+
 - **Template Engine**: EJS
 - **Styling**: TailwindCSS 4
 - **JavaScript**: Alpine.js (for interactivity)
@@ -96,6 +105,7 @@ TBVector adalah platform web fullstack untuk monitoring dan deteksi dini tuberku
 - **Icons**: Heroicons
 
 ### Development Tools
+
 - **Package Manager**: pnpm
 - **Dev Server**: ts-node-dev
 - **Linting**: ESLint with TypeScript
@@ -148,6 +158,7 @@ docker-compose up -d
 ```
 
 ✅ Keuntungan:
+
 - MongoDB sudah included
 - Tidak perlu install dependencies manual
 - Consistent environment
@@ -206,6 +217,7 @@ net start MongoDB
 1. Buat cluster di [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 2. Dapatkan connection string
 3. Update `MONGO_URI` di `.env`:
+
 ```env
 MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/tbvector?retryWrites=true&w=majority
 ```
@@ -229,11 +241,13 @@ pnpm dev
 ```
 
 Ini akan menjalankan:
+
 - ✅ Server di `http://localhost:3000` dengan auto-reload
 - ✅ TailwindCSS watcher untuk auto-compile CSS
 - ✅ TypeScript transpilation
 
 **Output:**
+
 ```
 Server running on http://0.0.0.0:3000
 Connected to MongoDB
@@ -250,6 +264,7 @@ pnpm build
 ```
 
 Ini akan:
+
 - ✅ Compile TypeScript → JavaScript di folder `dist/`
 - ✅ Minify CSS → `src/public/css/output.css`
 
@@ -297,6 +312,7 @@ docker-compose up -d --build
 ```
 
 **Akses:**
+
 - Web App: `http://localhost:3000`
 - Mongo Express: `http://localhost:8081` (username/password: admin/admin123)
 
@@ -426,17 +442,52 @@ pnpm start            # Start production server
 # Code Quality
 pnpm lint             # Run ESLint
 pnpm lint:fix         # Fix ESLint errors
-pnpm format           # Format code with Prettier
+pnpm format           # Format TypeScript & EJS files with Prettier
+pnpm format:ejs       # Format only EJS files with Prettier
 
 # Testing (if implemented)
 pnpm test             # Run tests
 ```
+
+### 🎨 Code Formatting
+
+Project ini menggunakan Prettier untuk formatting otomatis, termasuk untuk file **EJS**.
+
+**Format on Save (VS Code):**
+
+```json
+// .vscode/settings.json sudah dikonfigurasi
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
+```
+
+**Manual Formatting:**
+
+```bash
+# Format semua file TypeScript dan EJS
+pnpm format
+
+# Format hanya file EJS
+pnpm format:ejs
+```
+
+**Konfigurasi Prettier:**
+
+- File EJS menggunakan HTML parser
+- Single quotes untuk strings
+- No semicolons
+- Tab width: 2 spaces
+- Print width: 80 characters
+- Trailing commas: all
 
 ---
 
 ## 🌐 Routes & Endpoints
 
 ### Public Routes
+
 - `GET /` - Homepage (landing page)
 - `GET /auth/login` - Login page
 - `POST /auth/login` - Handle login
@@ -444,6 +495,7 @@ pnpm test             # Run tests
 - `POST /auth/register` - Handle registration
 
 ### Protected Routes (Requires Login)
+
 - `GET /dashboard` - Main dashboard
 - `GET /devices` - Device management
 - `GET /devices/:id` - Device details
@@ -453,6 +505,7 @@ pnpm test             # Run tests
 - `GET /profile` - User profile
 
 ### Admin Routes (Requires Admin Role)
+
 - `GET /users` - User management
 - `POST /users` - Create user
 - `PUT /users/:id` - Update user
@@ -508,6 +561,7 @@ JWT_SECRET=<another-generated-secret>
 ## 📊 Database Schema
 
 ### User Model
+
 ```typescript
 {
   email: String (unique, required)
@@ -524,6 +578,7 @@ JWT_SECRET=<another-generated-secret>
 ```
 
 ### Device Model
+
 ```typescript
 {
   deviceId: String (unique, required)
@@ -538,6 +593,7 @@ JWT_SECRET=<another-generated-secret>
 ```
 
 ### Cough Model
+
 ```typescript
 {
   deviceId: ObjectId (ref: 'Device')
@@ -558,17 +614,20 @@ JWT_SECRET=<another-generated-secret>
 ### Manual Testing
 
 1. **Test Registration**
+
 ```bash
 # Buka browser: http://localhost:3000/auth/register
 # Isi form dan submit
 ```
 
 2. **Test Login**
+
 ```bash
 # Login dengan credentials yang baru dibuat
 ```
 
 3. **Test Protected Routes**
+
 ```bash
 # Akses /dashboard tanpa login → redirect ke /auth/login
 # Login terlebih dahulu → akses berhasil
@@ -593,6 +652,7 @@ curl http://localhost:3000/dashboard \
 ## 🐛 Troubleshooting
 
 ### Port Already in Use
+
 ```bash
 # Error: EADDRINUSE: address already in use :::3000
 
@@ -604,6 +664,7 @@ lsof -ti:3000 | xargs kill -9  # macOS/Linux
 ```
 
 ### MongoDB Connection Error
+
 ```bash
 # Error: MongoNetworkError
 
@@ -617,6 +678,7 @@ brew services start mongodb-community  # macOS
 ```
 
 ### CSS Not Loading
+
 ```bash
 # Build CSS terlebih dahulu
 pnpm build:css
@@ -626,12 +688,14 @@ pnpm dev:css
 ```
 
 ### Session Not Persisting
+
 ```bash
 # Cek SESSION_SECRET di .env
 # Pastikan tidak kosong dan cukup panjang (min 32 karakter)
 ```
 
 ### Permission Denied
+
 ```bash
 # Error: EACCES: permission denied
 
@@ -745,7 +809,7 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/yourusername)
+- **Your Name** - _Initial work_ - [YourGitHub](https://github.com/yourusername)
 
 ---
 

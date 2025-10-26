@@ -6,6 +6,8 @@ export const requireAuth = (
   next: NextFunction,
 ) => {
   if (req.session?.user) {
+    // Set req.user from session for easier access in controllers
+    req.user = req.session.user as any
     return next()
   }
   req.flash('error', 'Silakan login terlebih dahulu')
@@ -20,7 +22,7 @@ export const requireGuest = (
   if (!req.session?.user) {
     return next()
   }
-  res.redirect('/dashboard')
+  res.redirect('/')
 }
 
 export const requireAdmin = (
@@ -32,5 +34,5 @@ export const requireAdmin = (
     return next()
   }
   req.flash('error', 'Akses ditolak. Hanya admin yang diizinkan.')
-  res.redirect('/dashboard')
+  res.redirect('/')
 }

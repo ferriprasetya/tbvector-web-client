@@ -4,6 +4,7 @@ import { apiKeyAuth } from '../middlewares/apiKeyAuth'
 import { uploadAudio } from '../middlewares/upload'
 import { authenticate } from '../middlewares/authenticate'
 import { isAdmin } from '../middlewares/isAdmin'
+import { requireAuth } from '../middlewares/auth.middleware'
 
 class CoughRoutes {
   public router = Router()
@@ -16,8 +17,17 @@ class CoughRoutes {
     // Endpoint for edge devices to upload initial cough data and audio file.
     // It is protected by a static API Key.
     this.router.post(
-      '/upload',
+      '/device/upload',
       apiKeyAuth,
+      uploadAudio,
+      coughController.createCoughEvent,
+    )
+
+    // Endpoint for web users to upload cough audio
+    // Protected by session authentication (already applied at router level)
+    this.router.post(
+      '/upload',
+      requireAuth,
       uploadAudio,
       coughController.createCoughEvent,
     )
@@ -30,6 +40,11 @@ class CoughRoutes {
       apiKeyAuth,
       coughController.updateCoughEventResult,
     )
+
+    // Endpoint to receive detection results from external ML service
+    // Receives record_id, status (0/1), and confidence_score
+    // Public endpoint (no authentication required)
+    this.router.patch('/detection', coughController.receiveDetectionResult)
 
     // Protected by JWT (authenticate), accessible by any logged-in user.
     this.router.get('/', authenticate, coughController.getAllCoughEvents)

@@ -16,6 +16,7 @@ interface INote {
 // Interface for the CoughEvent document
 export interface ICoughEvent extends Document {
   id: string // UUID from the edge device
+  user: Types.ObjectId // Reference to the User model
   device: Types.ObjectId // Reference to the Device model
   timestamp: Date
   directionOfArrival?: number
@@ -28,9 +29,7 @@ export interface ICoughEvent extends Document {
 }
 
 export interface CreateCoughEventDto {
-  deviceId: string
-  timestamp: string // ISO 8601 date string
-  directionOfArrival: string // number as a string
+  nama: string
 }
 
 const NoteSchema: Schema = new Schema({
@@ -65,10 +64,15 @@ const DetectionResultSchema: Schema = new Schema(
 
 const CoughEventSchema: Schema = new Schema<ICoughEvent>(
   {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
     device: {
       type: Schema.Types.ObjectId,
       ref: 'Device',
-      required: true,
+      required: false,
     },
     timestamp: {
       type: Date,

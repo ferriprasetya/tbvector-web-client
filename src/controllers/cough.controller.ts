@@ -25,6 +25,7 @@ class CoughController {
       const newCoughEvent = await coughService.createCoughEvent(
         audioFile,
         eventData,
+        req.user as any,
       )
 
       // Send a success response.
@@ -124,6 +125,39 @@ class CoughController {
   }
 
   /**
+   * Renders the detail page for a specific cough event with wavesurfer visualization.
+   */
+  public renderCoughEventDetail = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const { id } = req.params
+      const event = await coughService.getCoughEventById(id)
+
+      // Check if current user is the owner of this cough event
+      const currentUserId = req.user?.id
+      const eventUserId =
+        (event.user as any)?._id?.toString() || (event.user as any)?.toString()
+
+      if (currentUserId && eventUserId && currentUserId !== eventUserId) {
+        throw new HttpException(
+          403,
+          'Anda tidak memiliki akses ke riwayat deteksi ini.',
+        )
+      }
+
+      res.render('pages/cough-detail', {
+        title: 'Detail Riwayat Deteksi',
+        coughEvent: event,
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /**
    * Adds a note to a specific cough event.
    */
   public addNoteToCoughEvent = async (
@@ -171,6 +205,63 @@ class CoughController {
       res.status(200).json({
         status: 'success',
         message: 'Cough event deleted successfully.',
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /**
+   * Handles cough event detection result from an external ML service.
+   * This endpoint receives status (0/1) and confidence_score from external service callback.
+   */
+  public receiveDetectionResult = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> => {
+    try {
+      const { record_id, status, confidence_score } = req.body
+
+      // Validate input
+      if (
+        !record_id ||
+        status === undefined ||
+        confidence_score === undefined
+      ) {
+        res.status(400).json({
+          message:
+            'Missing required fields: record_id, status, confidence_score',
+        })
+        return
+      }
+
+      // Validate status is 0 or 1
+      if (status !== 0 && status !== 1) {
+        res.status(400).json({
+          message: 'Invalid status value. Must be 0 (negative) or 1 (positive)',
+        })
+        return
+      }
+
+      // Validate confidence_score is between 0 and 1
+      if (confidence_score < 0 || confidence_score > 1) {
+        res.status(400).json({
+          message: 'Invalid confidence_score. Must be between 0 and 1',
+        })
+        return
+      }
+
+      // Update the cough event with detection result
+      const coughEvent = await coughService.updateFromExternalDetection(
+        record_id,
+        status,
+        confidence_score,
+      )
+
+      res.status(200).json({
+        message: 'Detection result received and processed successfully',
+        data: coughEvent,
       })
     } catch (error) {
       next(error)

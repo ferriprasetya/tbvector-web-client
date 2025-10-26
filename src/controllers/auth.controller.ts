@@ -7,7 +7,7 @@ import { authService } from '../services/auth.service'
 export const showLogin = (req: Request, res: Response) => {
   // Redirect if already logged in
   if (req.session?.user) {
-    return res.redirect('/dashboard')
+    return res.redirect('/')
   }
 
   res.render('auth/login', {
@@ -22,7 +22,7 @@ export const showLogin = (req: Request, res: Response) => {
 export const showRegister = (req: Request, res: Response) => {
   // Redirect if already logged in
   if (req.session?.user) {
-    return res.redirect('/dashboard')
+    return res.redirect('/')
   }
 
   res.render('auth/register', {
@@ -55,7 +55,7 @@ export const login = async (
     }
 
     req.flash('success', `Selamat datang kembali, ${result.user.name}!`)
-    res.redirect('/dashboard')
+    res.redirect('/')
   } catch (error: any) {
     req.flash('error', error.message || 'Login gagal')
     res.redirect('/auth/login')
@@ -109,7 +109,7 @@ export const logout = (req: Request, res: Response) => {
   req.session.destroy((err) => {
     if (err) {
       req.flash('error', 'Logout gagal')
-      return res.redirect('/dashboard')
+      return res.redirect('/')
     }
     res.redirect('/auth/login')
   })

@@ -1,142 +1,191 @@
 <!DOCTYPE html>
 <html lang="id" class="h-full bg-gradient-to-br from-blue-50 to-primary-100">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %> - TBVector</title>
-  <link rel="stylesheet" href="/css/output.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-<body class="h-full">
-  <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-      <!-- Logo & Header -->
-      <div class="text-center">
-        <div class="flex justify-center">
-          <div class="bg-primary-700 rounded-full p-3">
-            <svg class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %> - TBVector</title>
+    <link rel="stylesheet" href="/css/output.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body class="h-full">
+    <div
+      class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div class="max-w-md w-full space-y-8">
+        <!-- Logo & Header -->
+        <div class="text-center">
+          <div class="flex justify-center">
+            <div class="flex items-center py-2 px-4 bg-primary-700 rounded-md">
+              <img
+                src="/assets/images/tbvector-logo.png"
+                alt="TBVector Logo"
+                class="h-12 w-auto"
+              />
+            </div>
           </div>
         </div>
-        <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
-          Masuk ke TBVector
-        </h2>
-        <p class="mt-2 text-sm text-gray-600">
-          Sistem Monitoring Deteksi Tuberkulosis
-        </p>
-      </div>
 
-      <!-- Flash Messages -->
-      <% if (typeof error !== 'undefined' && error && error.length > 0) { %>
+        <!-- Flash Messages -->
+        <% if (typeof error !== 'undefined' && error && error.length > 0) { %>
         <% error.forEach(msg => { %>
-          <div x-data="{ show: true }" x-show="show" x-transition class="bg-red-50 border-l-4 border-red-400 p-4 rounded-md">
-            <div class="flex">
-              <div class="flex-shrink-0">
-                <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+        <div
+          x-data="{ show: true }"
+          x-show="show"
+          x-transition
+          class="bg-red-50 border-l-4 border-red-400 p-4 rounded-md"
+        >
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="h-5 w-5 text-red-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm text-red-700"><%= msg %></p>
+            </div>
+            <div class="ml-auto pl-3">
+              <button
+                @click="show = false"
+                class="inline-flex text-red-400 hover:text-red-600"
+              >
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
                 </svg>
-              </div>
-              <div class="ml-3">
-                <p class="text-sm text-red-700"><%= msg %></p>
-              </div>
-              <div class="ml-auto pl-3">
-                <button @click="show = false" class="inline-flex text-red-400 hover:text-red-600">
-                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </button>
-              </div>
+              </button>
             </div>
-          </div>
-        <% }) %>
-      <% } %>
-
-      <% if (typeof success !== 'undefined' && success && success.length > 0) { %>
-        <% success.forEach(msg => { %>
-          <div x-data="{ show: true }" x-show="show" x-transition class="bg-green-50 border-l-4 border-green-400 p-4 rounded-md">
-            <div class="flex">
-              <div class="flex-shrink-0">
-                <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              <div class="ml-3">
-                <p class="text-sm text-green-700"><%= msg %></p>
-              </div>
-              <div class="ml-auto pl-3">
-                <button @click="show = false" class="inline-flex text-green-400 hover:text-green-600">
-                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        <% }) %>
-      <% } %>
-
-      <!-- Login Form -->
-      <div class="bg-white py-8 px-6 shadow-xl rounded-lg sm:px-10">
-        <form class="space-y-6" action="/auth/login" method="POST">
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <div class="mt-1">
-              <input id="email" name="email" type="email" autocomplete="email" required
-                     class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                     placeholder="nama@email.com">
-            </div>
-          </div>
-
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <div class="mt-1">
-              <input id="password" name="password" type="password" autocomplete="current-password" required
-                     class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
-                     placeholder="••••••••">
-            </div>
-          </div>
-
-
-          <div>
-            <button type="submit"
-                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
-              Masuk
-            </button>
-          </div>
-        </form>
-
-        <!-- Divider -->
-        <div class="mt-6">
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-gray-300"></div>
-            </div>
-            <div class="relative flex justify-center text-sm">
-              <span class="px-2 bg-white text-gray-500">
-                Belum punya akun?
-              </span>
-            </div>
-          </div>
-
-          <div class="mt-6">
-            <a href="/auth/register"
-               class="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors">
-              Daftar Sekarang
-            </a>
           </div>
         </div>
-      </div>
+        <% }) %> <% } %> <% if (typeof success !== 'undefined' && success &&
+        success.length > 0) { %> <% success.forEach(msg => { %>
+        <div
+          x-data="{ show: true }"
+          x-show="show"
+          x-transition
+          class="bg-green-50 border-l-4 border-green-400 p-4 rounded-md"
+        >
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="h-5 w-5 text-green-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm text-green-700"><%= msg %></p>
+            </div>
+            <div class="ml-auto pl-3">
+              <button
+                @click="show = false"
+                class="inline-flex text-green-400 hover:text-green-600"
+              >
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <% }) %> <% } %>
 
-      <!-- Footer -->
-      <div class="text-center text-sm text-gray-600">
-        <p>&copy; <%= new Date().getFullYear() %> TBVector. All rights reserved.</p>
+        <!-- Login Form -->
+        <div class="bg-white py-8 px-6 shadow-xl rounded-lg sm:px-10">
+          <h2 class="mb-6 text-3xl font-extrabold text-gray-900">Masuk</h2>
+          <form class="space-y-6" action="/auth/login" method="POST">
+            <div>
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <div class="mt-1">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  placeholder="nama@email.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <div class="mt-1">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  required
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  placeholder="••••••••"
+                />
+              </div>
+            </div>
+
+            <div>
+              <button type="submit" class="btn-primary w-full">Masuk</button>
+            </div>
+          </form>
+
+          <!-- Divider -->
+          <div class="mt-6">
+            <div class="relative">
+              <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300"></div>
+              </div>
+              <div class="relative flex justify-center text-sm">
+                <span class="px-2 bg-white text-gray-500">
+                  Belum punya akun?
+                </span>
+              </div>
+            </div>
+
+            <div class="mt-6">
+              <a
+                href="/auth/register"
+                class="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+              >
+                Daftar Sekarang
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>

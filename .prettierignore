@@ -1,5 +1,8 @@
 node_modules
 dist
 coverage
+public/uploads
 
 .env
+pnpm-lock.yaml
+*.log

@@ -1,200 +1,281 @@
 <!DOCTYPE html>
-<html lang="id" class="h-full bg-gradient-to-br from-blue-50 to-indigo-100">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %> - TBVector</title>
-  <link rel="stylesheet" href="/css/output.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-<body class="h-full">
-  <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-      <!-- Logo & Header -->
-      <div class="text-center">
-        <div class="flex justify-center">
-          <div class="bg-indigo-600 rounded-full p-3">
-            <svg class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-          </div>
-        </div>
-        <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
-          Daftar Akun Baru
-        </h2>
-        <p class="mt-2 text-sm text-gray-600">
-          Bergabung dengan TBVector untuk mulai monitoring
-        </p>
-      </div>
-
-      <!-- Flash Messages -->
-      <% if (typeof error !== 'undefined' && error && error.length > 0) { %>
-        <% error.forEach(msg => { %>
-          <div x-data="{ show: true }" x-show="show" x-transition class="bg-red-50 border-l-4 border-red-400 p-4 rounded-md">
-            <div class="flex">
-              <div class="flex-shrink-0">
-                <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                </svg>
-              </div>
-              <div class="ml-3">
-                <p class="text-sm text-red-700"><%= msg %></p>
-              </div>
-              <div class="ml-auto pl-3">
-                <button @click="show = false" class="inline-flex text-red-400 hover:text-red-600">
-                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                  </svg>
-                </button>
-              </div>
+<html lang="id" class="h-full bg-gradient-to-br from-blue-50 to-primary-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %> - TBVector</title>
+    <link rel="stylesheet" href="/css/output.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body class="h-full">
+    <div
+      class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div class="max-w-md w-full space-y-8">
+        <!-- Logo & Header -->
+        <div class="text-center">
+          <div class="flex justify-center">
+            <div class="flex items-center py-2 px-4 bg-primary-700 rounded-md">
+              <img
+                src="/assets/images/tbvector-logo.png"
+                alt="TBVector Logo"
+                class="h-12 w-auto"
+              />
             </div>
           </div>
-        <% }) %>
-      <% } %>
+        </div>
 
-      <!-- Register Form -->
-      <div class="bg-white py-8 px-6 shadow-xl rounded-lg sm:px-10">
-        <form class="space-y-6" action="/auth/register" method="POST" x-data="{ 
+        <!-- Flash Messages -->
+        <% if (typeof error !== 'undefined' && error && error.length > 0) { %>
+        <% error.forEach(msg => { %>
+        <div
+          x-data="{ show: true }"
+          x-show="show"
+          x-transition
+          class="bg-red-50 border-l-4 border-red-400 p-4 rounded-md"
+        >
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg
+                class="h-5 w-5 text-red-400"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm text-red-700"><%= msg %></p>
+            </div>
+            <div class="ml-auto pl-3">
+              <button
+                @click="show = false"
+                class="inline-flex text-red-400 hover:text-red-600"
+              >
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <% }) %> <% } %>
+
+        <!-- Register Form -->
+        <div class="bg-white py-8 px-6 shadow-xl rounded-lg sm:px-10">
+          <h2 class="mb-6 text-3xl font-extrabold text-gray-900">
+            Daftar Akun Baru
+          </h2>
+          <form
+            class="space-y-6"
+            action="/auth/register"
+            method="POST"
+            x-data="{ 
           password: '', 
           confirmPassword: '',
           passwordMatch() {
             return this.password === this.confirmPassword && this.password.length > 0;
           }
-        }">
-          <!-- Name -->
-          <div>
-            <label for="name" class="block text-sm font-medium text-gray-700">
-              Nama Lengkap
-            </label>
-            <div class="mt-1">
-              <input id="name" name="name" type="text" autocomplete="name" required
-                     value="<%= typeof formData !== 'undefined' && formData.name ? formData.name : '' %>"
-                     class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                     placeholder="John Doe">
-            </div>
-          </div>
-
-          <!-- Email -->
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <div class="mt-1">
-              <input id="email" name="email" type="email" autocomplete="email" required
-                     value="<%= typeof formData !== 'undefined' && formData.email ? formData.email : '' %>"
-                     class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                     placeholder="nama@email.com">
-            </div>
-          </div>
-
-          <!-- Username -->
-          <div>
-            <label for="username" class="block text-sm font-medium text-gray-700">
-              Username
-            </label>
-            <div class="mt-1">
-              <input id="username" name="username" type="text" autocomplete="username" required
-                     value="<%= typeof formData !== 'undefined' && formData.username ? formData.username : '' %>"
-                     class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                     placeholder="johndoe"
-                     pattern="[a-zA-Z0-9_]+"
-                     title="Username hanya boleh berisi huruf, angka, dan underscore">
-              <p class="mt-1 text-xs text-gray-500">Hanya huruf, angka, dan underscore. Min. 3 karakter.</p>
-            </div>
-          </div>
-
-          <!-- Password -->
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <div class="mt-1">
-              <input id="password" name="password" type="password" autocomplete="new-password" required
-                     x-model="password"
-                     minlength="6"
-                     class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                     placeholder="••••••••">
-              <p class="mt-1 text-xs text-gray-500">Minimal 6 karakter.</p>
-            </div>
-          </div>
-
-          <!-- Confirm Password -->
-          <div>
-            <label for="confirmPassword" class="block text-sm font-medium text-gray-700">
-              Konfirmasi Password
-            </label>
-            <div class="mt-1 relative">
-              <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required
-                     x-model="confirmPassword"
-                     minlength="6"
-                     class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                     :class="{ 'border-red-500': confirmPassword.length > 0 && !passwordMatch(), 'border-green-500': passwordMatch() }"
-                     placeholder="••••••••">
-              <!-- Password match indicator -->
-              <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                <svg x-show="passwordMatch()" class="h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-                <svg x-show="confirmPassword.length > 0 && !passwordMatch()" class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                </svg>
+        }"
+          >
+            <!-- Name -->
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700">
+                Nama Lengkap
+              </label>
+              <div class="mt-1">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                  required
+                  value="<%= typeof formData !== 'undefined' && formData.name ? formData.name : '' %>"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  placeholder="John Doe"
+                />
               </div>
             </div>
-            <p x-show="confirmPassword.length > 0 && !passwordMatch()" class="mt-1 text-xs text-red-600">
-              Password tidak cocok
-            </p>
-          </div>
 
-          <!-- Terms -->
-          <div class="flex items-start">
-            <div class="flex items-center h-5">
-              <input id="terms" name="terms" type="checkbox" required
-                     class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-            </div>
-            <div class="ml-3 text-sm">
-              <label for="terms" class="font-medium text-gray-700">
-                Saya setuju dengan <a href="#" class="text-indigo-600 hover:text-indigo-500">syarat dan ketentuan</a>
+            <!-- Email -->
+            <div>
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Email
               </label>
+              <div class="mt-1">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                  value="<%= typeof formData !== 'undefined' && formData.email ? formData.email : '' %>"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  placeholder="nama@email.com"
+                />
+              </div>
             </div>
-          </div>
 
-          <!-- Submit Button -->
-          <div>
-            <button type="submit"
-                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    :disabled="!passwordMatch()">
-              Daftar Sekarang
-            </button>
-          </div>
-        </form>
-
-        <!-- Divider -->
-        <div class="mt-6">
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-gray-300"></div>
+            <!-- Username -->
+            <div>
+              <label
+                for="username"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Username
+              </label>
+              <div class="mt-1">
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  autocomplete="username"
+                  required
+                  value="<%= typeof formData !== 'undefined' && formData.username ? formData.username : '' %>"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  placeholder="johndoe"
+                  pattern="[a-zA-Z0-9_]+"
+                  title="Username hanya boleh berisi huruf, angka, dan underscore"
+                />
+                <p class="mt-1 text-xs text-gray-500">
+                  Hanya huruf, angka, dan underscore. Min. 3 karakter.
+                </p>
+              </div>
             </div>
-            <div class="relative flex justify-center text-sm">
-              <span class="px-2 bg-white text-gray-500">
-                Sudah punya akun?
-              </span>
-            </div>
-          </div>
 
+            <!-- Password -->
+            <div>
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <div class="mt-1">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="new-password"
+                  required
+                  x-model="password"
+                  minlength="6"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  placeholder="••••••••"
+                />
+                <p class="mt-1 text-xs text-gray-500">Minimal 6 karakter.</p>
+              </div>
+            </div>
+
+            <!-- Confirm Password -->
+            <div>
+              <label
+                for="confirmPassword"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Konfirmasi Password
+              </label>
+              <div class="mt-1 relative">
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  autocomplete="new-password"
+                  required
+                  x-model="confirmPassword"
+                  minlength="6"
+                  class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                  :class="{ 'border-red-500': confirmPassword.length > 0 && !passwordMatch(), 'border-green-500': passwordMatch() }"
+                  placeholder="••••••••"
+                />
+                <!-- Password match indicator -->
+                <div
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"
+                >
+                  <svg
+                    x-show="passwordMatch()"
+                    class="h-5 w-5 text-green-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <svg
+                    x-show="confirmPassword.length > 0 && !passwordMatch()"
+                    class="h-5 w-5 text-red-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <p
+                x-show="confirmPassword.length > 0 && !passwordMatch()"
+                class="mt-1 text-xs text-red-600"
+              >
+                Password tidak cocok
+              </p>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+              <button
+                type="submit"
+                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-700 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                :disabled="!passwordMatch()"
+              >
+                Daftar Sekarang
+              </button>
+            </div>
+          </form>
+
+          <!-- Divider -->
           <div class="mt-6">
-            <a href="/auth/login"
-               class="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
-              Masuk di sini
-            </a>
+            <div class="relative">
+              <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300"></div>
+              </div>
+              <div class="relative flex justify-center text-sm">
+                <span class="px-2 bg-white text-gray-500">
+                  Sudah punya akun?
+                </span>
+              </div>
+            </div>
+
+            <div class="mt-6">
+              <a
+                href="/auth/login"
+                class="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors"
+              >
+                Masuk di sini
+              </a>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Footer -->
-      <div class="text-center text-sm text-gray-600">
-        <p>&copy; <%= new Date().getFullYear() %> TBVector. All rights reserved.</p>
-      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
