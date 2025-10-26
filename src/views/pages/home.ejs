@@ -1,185 +1,272 @@
-<!DOCTYPE html>
-<html lang="id" class="h-full">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TBVector - Sistem Monitoring Deteksi TB</title>
-  <link rel="stylesheet" href="/css/output.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-<body class="h-full">
-  <!-- Navbar -->
-  <nav class="bg-white shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
-        <div class="flex items-center">
-          <svg class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-          </svg>
-          <span class="ml-2 text-xl font-bold text-gray-800">TBVector</span>
-        </div>
-        <div class="flex items-center space-x-4">
-          <a href="/auth/login" class="text-gray-700 hover:text-indigo-600 font-medium">Login</a>
-          <a href="/auth/register" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md font-medium transition-colors">
-            Daftar
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <div class="relative bg-gradient-to-br from-indigo-50 to-blue-100 overflow-hidden">
-    <div class="max-w-7xl mx-auto">
-      <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:w-full lg:pb-28 xl:pb-32">
-        <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-          <div class="text-center">
-            <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-              <span class="block">Monitoring Deteksi</span>
-              <span class="block text-indigo-600">Tuberkulosis Real-time</span>
-            </h1>
-            <p class="mt-3 max-w-md mx-auto text-base text-gray-600 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-              Sistem monitoring cerdas untuk deteksi dini tuberkulosis melalui analisis suara batuk dengan teknologi machine learning.
-            </p>
-            <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-              <div class="rounded-md shadow">
-                <a href="/auth/register" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10 transition-colors">
-                  Mulai Sekarang
-                </a>
-              </div>
-              <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-                <a href="#features" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10 transition-colors">
-                  Pelajari Lebih Lanjut
-                </a>
-              </div>
-            </div>
-          </div>
-        </main>
-      </div>
-    </div>
-  </div>
-
-  <!-- Features Section -->
-  <div id="features" class="py-12 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-          Fitur Unggulan
-        </h2>
-        <p class="mt-4 max-w-2xl text-xl text-gray-600 mx-auto">
-          Teknologi terdepan untuk monitoring dan deteksi TB
-        </p>
-      </div>
-
-      <div class="mt-10">
-        <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- Feature 1 -->
-          <div class="flex flex-col items-center text-center">
-            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-              </svg>
-            </div>
-            <h3 class="mt-4 text-lg font-medium text-gray-900">Analisis Suara Batuk</h3>
-            <p class="mt-2 text-base text-gray-600">
-              Deteksi otomatis pola batuk menggunakan machine learning untuk identifikasi dini TB
-            </p>
-          </div>
-
-          <!-- Feature 2 -->
-          <div class="flex flex-col items-center text-center">
-            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-            </div>
-            <h3 class="mt-4 text-lg font-medium text-gray-900">Dashboard Real-time</h3>
-            <p class="mt-2 text-base text-gray-600">
-              Pantau data dan statistik secara real-time dengan visualisasi yang mudah dipahami
-            </p>
-          </div>
-
-          <!-- Feature 3 -->
-          <div class="flex flex-col items-center text-center">
-            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-              </svg>
-            </div>
-            <h3 class="mt-4 text-lg font-medium text-gray-900">Notifikasi Instan</h3>
-            <p class="mt-2 text-base text-gray-600">
-              Dapatkan notifikasi segera saat terdeteksi potensi TB untuk tindakan cepat
-            </p>
-          </div>
-
-          <!-- Feature 4 -->
-          <div class="flex flex-col items-center text-center">
-            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3 class="mt-4 text-lg font-medium text-gray-900">Multi-Device Support</h3>
-            <p class="mt-2 text-base text-gray-600">
-              Kelola dan monitor multiple perangkat dari satu dashboard terpusat
-            </p>
-          </div>
-
-          <!-- Feature 5 -->
-          <div class="flex flex-col items-center text-center">
-            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-            <h3 class="mt-4 text-lg font-medium text-gray-900">Keamanan Data</h3>
-            <p class="mt-2 text-base text-gray-600">
-              Data pasien terlindungi dengan enkripsi dan standar keamanan tinggi
-            </p>
-          </div>
-
-          <!-- Feature 6 -->
-          <div class="flex flex-col items-center text-center">
-            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
-              </svg>
-            </div>
-            <h3 class="mt-4 text-lg font-medium text-gray-900">Laporan & Analitik</h3>
-            <p class="mt-2 text-base text-gray-600">
-              Generate laporan lengkap dan analisis data untuk evaluasi program
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CTA Section -->
-  <div class="bg-indigo-700">
-    <div class="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
-      <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
-        <span class="block">Siap untuk memulai?</span>
-        <span class="block">Daftar sekarang juga.</span>
-      </h2>
-      <p class="mt-4 text-lg leading-6 text-indigo-200">
-        Bergabung dengan TBVector untuk monitoring deteksi TB yang lebih efektif dan efisien.
+<div
+  class="h-full bg-gradient-to-br from-white to-primary-50 flex items-center justify-center p-4 md:p-8 rounded-lg md:rounded-2xl"
+>
+  <div class="max-w-4xl w-full">
+    <!-- Welcome Section -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">
+        Selamat Datang, <%= user.name %>!
+      </h1>
+      <p class="text-gray-600 text-lg">
+        Mulai deteksi TB dengan merekam suara batuk Anda
       </p>
-      <a href="/auth/register" class="mt-8 w-full inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50 sm:w-auto transition-colors">
-        Daftar Gratis
+    </div>
+
+    <!-- Recording Section -->
+    <div
+      class="bg-white rounded-2xl shadow-xl p-8 mb-6"
+      x-data="audioRecorder()"
+    >
+      <!-- Mic Button -->
+      <div class="flex flex-col items-center justify-center mb-6">
+        <button
+          @click="toggleRecording()"
+          :class="isRecording ? 'bg-red-500 hover:bg-red-600 animate-pulse' : 'bg-primary-700 hover:bg-primary-800'"
+          class="w-32 h-32 rounded-full flex items-center justify-center text-white shadow-2xl transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary-300 cursor-pointer"
+        >
+          <svg
+            class="w-16 h-16"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+            ></path>
+          </svg>
+        </button>
+        <p
+          class="mt-4 text-gray-600 font-medium"
+          x-text="isRecording ? 'Merekam...' : 'Tekan untuk merekam'"
+        ></p>
+        <p
+          class="text-sm text-gray-500 mt-1"
+          x-show="isRecording"
+          x-text="'Durasi: ' + recordingTime + 's'"
+        ></p>
+      </div>
+
+      <!-- Audio Preview -->
+      <div x-show="audioURL" class="mt-6">
+        <h3 class="text-lg font-semibold text-gray-700 mb-3">
+          Preview Rekaman
+        </h3>
+        <audio :src="audioURL" controls class="w-full mb-4"></audio>
+        <div class="flex gap-3 justify-center">
+          <button
+            @click="uploadRecording()"
+            :disabled="uploading"
+            class="btn-primary transition-colors flex items-center gap-2"
+          >
+            <svg
+              x-show="!uploading"
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+              ></path>
+            </svg>
+            <svg
+              x-show="uploading"
+              class="animate-spin w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            <span
+              x-text="uploading ? 'Mengupload...' : 'Upload Rekaman'"
+            ></span>
+          </button>
+          <button @click="resetRecording()" class="btn-secondary">
+            Rekam Ulang
+          </button>
+        </div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="mt-8 bg-blue-50 rounded-lg p-4">
+        <h4 class="font-semibold text-blue-900 mb-2 flex items-center gap-2">
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+          Petunjuk Perekaman
+        </h4>
+        <ul class="text-sm text-blue-800 space-y-1 ml-7">
+          <li>• Pastikan Anda berada di tempat yang tenang</li>
+          <li>• Dekatkan mikrofon ke mulut Anda</li>
+          <li>• Batukkan sebanyak 3-5 kali</li>
+          <li>• Tekan tombol merah untuk berhenti merekam</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="max-w-md mx-auto">
+      <a
+        href="/recordings"
+        class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow flex items-center gap-4"
+      >
+        <div class="bg-primary-100 p-3 rounded-lg">
+          <svg
+            class="w-8 h-8 text-primary-700"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+            ></path>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900 text-lg">Riwayat Deteksi</h3>
+          <p class="text-gray-600 text-sm">Lihat semua hasil deteksi Anda</p>
+        </div>
       </a>
     </div>
   </div>
+</div>
 
-  <!-- Footer -->
-  <footer class="bg-gray-800">
-    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <p class="text-base text-gray-400">
-          &copy; <%= new Date().getFullYear() %> TBVector. All rights reserved.
-        </p>
-      </div>
-    </div>
-  </footer>
-</body>
-</html>
+<script
+  src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+  defer
+></script>
+<script>
+  function audioRecorder() {
+    return {
+      isRecording: false,
+      mediaRecorder: null,
+      audioChunks: [],
+      audioBlob: null,
+      audioURL: null,
+      recordingTime: 0,
+      recordingInterval: null,
+      uploading: false,
+
+      async toggleRecording() {
+        if (this.isRecording) {
+          this.stopRecording()
+        } else {
+          await this.startRecording()
+        }
+      },
+
+      async startRecording() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          })
+          this.mediaRecorder = new MediaRecorder(stream)
+          this.audioChunks = []
+          this.recordingTime = 0
+
+          this.mediaRecorder.addEventListener('dataavailable', (event) => {
+            this.audioChunks.push(event.data)
+          })
+
+          this.mediaRecorder.addEventListener('stop', () => {
+            this.audioBlob = new Blob(this.audioChunks, { type: 'audio/wav' })
+            this.audioURL = URL.createObjectURL(this.audioBlob)
+            stream.getTracks().forEach((track) => track.stop())
+          })
+
+          this.mediaRecorder.start()
+          this.isRecording = true
+
+          // Start timer
+          this.recordingInterval = setInterval(() => {
+            this.recordingTime++
+          }, 1000)
+        } catch (error) {
+          console.error('Error accessing microphone:', error)
+          alert(
+            'Tidak dapat mengakses mikrofon. Pastikan Anda memberikan izin.',
+          )
+        }
+      },
+
+      stopRecording() {
+        if (this.mediaRecorder && this.isRecording) {
+          this.mediaRecorder.stop()
+          this.isRecording = false
+          clearInterval(this.recordingInterval)
+        }
+      },
+
+      resetRecording() {
+        this.audioBlob = null
+        this.audioURL = null
+        this.recordingTime = 0
+        this.audioChunks = []
+      },
+
+      async uploadRecording() {
+        if (!this.audioBlob) return
+
+        this.uploading = true
+        const formData = new FormData()
+        formData.append('audio', this.audioBlob, 'recording.wav')
+        formData.append('nama', '<%= user.name %>')
+
+        try {
+          const response = await fetch('/coughs/upload', {
+            method: 'POST',
+            body: formData,
+          })
+
+          if (response.ok) {
+            alert('Rekaman berhasil diupload! Sedang dianalisis...')
+            this.resetRecording()
+            window.location.href = '/recordings'
+          } else {
+            const error = await response.json()
+            alert(
+              'Gagal mengupload rekaman: ' + (error.message || 'Unknown error'),
+            )
+          }
+        } catch (error) {
+          console.error('Upload error:', error)
+          alert('Terjadi kesalahan saat mengupload rekaman.')
+        } finally {
+          this.uploading = false
+        }
+      },
+    }
+  }
+</script>

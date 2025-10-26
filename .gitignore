@@ -1,5 +1,6 @@
 /node_modules
 /dist
+/public/uploads
 
 npm-debug.log*
 pnpm-debug.log*

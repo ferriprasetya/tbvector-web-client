@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="id" class="h-full bg-gray-50">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %> - TBVector</title>
-  <link rel="stylesheet" href="/css/output.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-</head>
-<body class="h-full">
-  <div class="min-h-full">
-    <%- include('../partials/navbar') %>
-    
-    <main class="p-6">
-      <%- include('../partials/flash') %>
-      <%- body %>
-    </main>
-  </div>
-  
-  <script src="/js/main.js"></script>
-  <script src="/js/socket.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %> - TBVector</title>
+    <link rel="stylesheet" href="/css/output.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body class="h-full">
+    <div class="min-h-full">
+      <%- include('../partials/navbar') %>
+
+      <main class="p-6 h-full">
+        <%- include('../partials/flash') %> <%- body %>
+      </main>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/socket.js"></script>
+  </body>
 </html>

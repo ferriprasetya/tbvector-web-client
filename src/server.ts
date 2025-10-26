@@ -30,7 +30,11 @@ app.use(expressLayouts)
 app.set('layout', 'layouts/main')
 
 // Static Files
+// Serve from root /public folder first (for assets like images, colormap, etc.)
+app.use(express.static(path.join(__dirname, '../public')))
+// Serve from src/public folder (for compiled CSS/JS if any)
 app.use(express.static(path.join(__dirname, 'public')))
+// Serve uploads folder
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')))
 
 // Body Parser
