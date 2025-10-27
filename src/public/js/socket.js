@@ -1,79 +1,114 @@
 // Socket.IO Client
-let socket;
+let socket
 
 function initSocket() {
-  socket = io();
+  socket = io()
 
   socket.on('connect', () => {
-    console.log('Connected to socket server');
-  });
+    console.log('Connected to socket server')
+  })
 
   socket.on('disconnect', () => {
-    console.log('Disconnected from socket server');
-  });
+    console.log('Disconnected from socket server')
+  })
 
   // Listen for new cough detections
   socket.on('newCoughDetection', (data) => {
-    console.log('New cough detection:', data);
-    showNotification('Deteksi Batuk Baru', `Terdeteksi batuk baru dari perangkat ${data.deviceId}`);
-    
+    console.log('New cough detection:', data)
+    showNotification(
+      'Deteksi Batuk Baru',
+      `Terdeteksi batuk baru dari perangkat ${data.deviceId}`,
+    )
+
     // Update UI if on relevant page
-    if (window.location.pathname === '/dashboard' || window.location.pathname === '/coughs') {
+    if (
+      window.location.pathname === '/dashboard' ||
+      window.location.pathname === '/coughs'
+    ) {
       // Reload or update data
-      location.reload();
+      location.reload()
     }
-  });
+  })
 
   // Listen for device status updates
   socket.on('deviceStatusUpdate', (data) => {
-    console.log('Device status update:', data);
-    
+    console.log('Device status update:', data)
+
     // Update UI if on devices page
     if (window.location.pathname === '/devices') {
-      updateDeviceStatus(data);
+      updateDeviceStatus(data)
     }
-  });
+  })
 
   // Listen for notifications
   socket.on('notification', (data) => {
-    console.log('New notification:', data);
-    showNotification(data.title, data.message);
-  });
+    console.log('New notification:', data)
+    showNotification(data.title, data.message)
+  })
+
+  // Listen for detection completion from ML service
+  socket.on('cough_event:detection_complete', (data) => {
+    console.log('Detection complete:', data)
+
+    const statusText = data.isTBCough ? 'POSITIF TB' : 'NEGATIF TB'
+    const confidence = (data.confidenceScore * 100).toFixed(1)
+
+    // Show different notification based on current page
+    if (window.location.pathname === '/recordings') {
+      // If on recordings page, show toast and refresh
+      showDetectionCompleteToast(
+        `Hasil deteksi tersedia!`,
+        `Status: ${statusText} (${confidence}%)`,
+        data.isTBCough,
+        true, // Trigger refresh
+      )
+    } else {
+      // If on other page, show toast with redirect button
+      showDetectionCompleteToast(
+        `Hasil deteksi tersedia!`,
+        `Status: ${statusText} (${confidence}%)`,
+        data.isTBCough,
+        false, // Show redirect button
+        '/recordings',
+      )
+    }
+  })
 }
 
 // Show browser notification
 function showNotification(title, message) {
   // Check if browser supports notifications
   if (!('Notification' in window)) {
-    console.log('This browser does not support notifications');
-    return;
+    console.log('This browser does not support notifications')
+    return
   }
 
   // Check permission
   if (Notification.permission === 'granted') {
     new Notification(title, {
       body: message,
-      icon: '/images/icon.png'
-    });
+      icon: '/images/icon.png',
+    })
   } else if (Notification.permission !== 'denied') {
-    Notification.requestPermission().then(permission => {
+    Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
         new Notification(title, {
           body: message,
-          icon: '/images/icon.png'
-        });
+          icon: '/images/icon.png',
+        })
       }
-    });
+    })
   }
 
   // Also show in-app notification
-  showInAppNotification(title, message);
+  showInAppNotification(title, message)
 }
 
 // Show in-app notification toast
 function showInAppNotification(title, message) {
-  const notification = document.createElement('div');
-  notification.className = 'fixed bottom-4 right-4 bg-white shadow-lg rounded-lg p-4 max-w-sm z-50 transform transition-all duration-300 translate-y-full';
+  const notification = document.createElement('div')
+  notification.className =
+    'fixed bottom-4 right-4 bg-white shadow-lg rounded-lg p-4 max-w-sm z-50 transform transition-all duration-300 translate-y-full'
   notification.innerHTML = `
     <div class="flex items-start">
       <div class="flex-shrink-0">
@@ -93,37 +128,118 @@ function showInAppNotification(title, message) {
         </button>
       </div>
     </div>
-  `;
-  
-  document.body.appendChild(notification);
-  
+  `
+
+  document.body.appendChild(notification)
+
   // Animate in
   setTimeout(() => {
-    notification.classList.remove('translate-y-full');
-  }, 100);
-  
+    notification.classList.remove('translate-y-full')
+  }, 100)
+
   // Auto remove after 5 seconds
   setTimeout(() => {
-    notification.classList.add('translate-y-full');
-    setTimeout(() => notification.remove(), 300);
-  }, 5000);
+    notification.classList.add('translate-y-full')
+    setTimeout(() => notification.remove(), 300)
+  }, 5000)
+}
+
+// Show detection complete toast with custom styling
+function showDetectionCompleteToast(
+  title,
+  message,
+  isPositive,
+  autoRefresh = false,
+  redirectUrl = null,
+) {
+  const bgColor = isPositive
+    ? 'bg-red-50 border-red-500'
+    : 'bg-green-50 border-green-500'
+  const iconColor = isPositive ? 'text-red-500' : 'text-green-500'
+  const textColor = isPositive ? 'text-red-800' : 'text-green-800'
+
+  const notification = document.createElement('div')
+  notification.className = `fixed top-4 right-4 ${bgColor} border-l-4 shadow-lg rounded-lg p-4 max-w-md z-50 transform transition-all duration-300 translate-x-full`
+
+  let buttonsHtml = ''
+  if (autoRefresh) {
+    buttonsHtml = `
+      <div class="mt-3 flex gap-2">
+        <button onclick="location.reload()" class="px-4 py-2 bg-primary-700 hover:bg-primary-800 text-white text-sm font-medium rounded-lg transition-colors">
+          Refresh Data
+        </button>
+      </div>
+    `
+  } else if (redirectUrl) {
+    buttonsHtml = `
+      <div class="mt-3 flex gap-2">
+        <button onclick="location.href='${redirectUrl}'" class="px-4 py-2 bg-primary-700 hover:bg-primary-800 text-white text-sm font-medium rounded-lg transition-colors">
+          Lihat Riwayat
+        </button>
+      </div>
+    `
+  }
+
+  notification.innerHTML = `
+    <div class="flex items-start">
+      <div class="flex-shrink-0">
+        <svg class="h-6 w-6 ${iconColor}" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+      </div>
+      <div class="ml-3 flex-1">
+        <p class="text-sm font-bold ${textColor}">${title}</p>
+        <p class="mt-1 text-sm ${textColor}">${message}</p>
+        ${buttonsHtml}
+      </div>
+      <div class="ml-4 flex-shrink-0">
+        <button onclick="this.parentElement.parentElement.remove()" class="inline-flex text-gray-400 hover:text-gray-600">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  `
+
+  document.body.appendChild(notification)
+
+  // Animate in
+  setTimeout(() => {
+    notification.classList.remove('translate-x-full')
+  }, 100)
+
+  // Auto refresh if needed
+  if (autoRefresh) {
+    setTimeout(() => {
+      location.reload()
+    }, 3000)
+  }
+
+  // Auto remove after 10 seconds
+  setTimeout(() => {
+    notification.classList.add('translate-x-full')
+    setTimeout(() => notification.remove(), 300)
+  }, 10000)
 }
 
 // Update device status in UI
 function updateDeviceStatus(data) {
-  const deviceElement = document.querySelector(`[data-device-id="${data.deviceId}"]`);
+  const deviceElement = document.querySelector(
+    `[data-device-id="${data.deviceId}"]`,
+  )
   if (deviceElement) {
-    const statusBadge = deviceElement.querySelector('.device-status');
+    const statusBadge = deviceElement.querySelector('.device-status')
     if (statusBadge) {
-      statusBadge.textContent = data.status;
-      statusBadge.className = `device-status badge ${data.status === 'online' ? 'badge-success' : 'badge-danger'}`;
+      statusBadge.textContent = data.status
+      statusBadge.className = `device-status badge ${data.status === 'online' ? 'badge-success' : 'badge-danger'}`
     }
   }
 }
 
 // Initialize socket when document is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initSocket);
+  document.addEventListener('DOMContentLoaded', initSocket)
 } else {
-  initSocket();
+  initSocket()
 }

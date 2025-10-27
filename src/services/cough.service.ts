@@ -233,6 +233,17 @@ class CoughService {
       })
     }
 
+    // Emit socket event for real-time notification to user
+    const io = getIoInstance()
+    io.emit('cough_event:detection_complete', {
+      recordId,
+      status: detectionStatus,
+      isTBCough,
+      confidenceScore,
+      userName: (coughEvent.user as any)?.name || 'Pasien',
+      timestamp: new Date(),
+    })
+
     console.log(
       `Updated cough event ${recordId} with status: ${detectionStatus}, confidence: ${confidenceScore}`,
     )

@@ -378,13 +378,11 @@
 
           if (response.ok) {
             showToast(
-              'Rekaman berhasil diupload! Sedang dianalisis...',
+              'Rekaman berhasil diupload! Menunggu hasil analisis dari ML service...',
               'success',
             )
             this.resetRecording()
-            setTimeout(() => {
-              window.location.href = '/recordings'
-            }, 1500)
+            // Don't redirect - stay on home page and wait for socket notification
           } else {
             const error = await response.json()
             showToast(
